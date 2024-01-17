@@ -3,15 +3,39 @@
 {% block content %}
   <h2>Task List</h2>
   <ul>
+    <h3><strong>ToDo</strong></h3>
     {% for task in object_list %}
-      <li>{{ task.title }} - {{ task.get_stage_display }}
-        {% if task.stage != 'done' %}
-        <a href="{% url 'task-update' task.pk %}">Edit</a>
-        {% else %}
-        Edit
-        {% endif %}
-        <a href="{% url 'task-delete' task.pk %}">Delete</a>
-      </li>
+      {% if task.stage == 'todo' %}
+        <li>
+          {{ task.title }} - {{ task.get_stage_display }}
+          <a href="{% url 'task-update' task.pk %}">Edit</a>
+          <a href="{% url 'task-delete' task.pk %}">Delete</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    <ul>
+      <h3><strong>Doing</strong></h3>
+    {% for task in object_list %}
+      {% if task.stage == 'doing' %}
+        <li>
+          {{ task.title }} - {{ task.get_stage_display }}
+          <a href="{% url 'task-update' task.pk %}">Edit</a>
+          <a href="{% url 'task-delete' task.pk %}">Delete</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    <ul>
+      <h3><strong>Done</strong></h3>
+    {% for task in object_list %}
+      {% if task.stage == 'done' %}
+        <li>
+          {{ task.title }} - {{ task.get_stage_display }}
+          <!-- Edit option disabled for Done tasks -->
+          <a href="{% url 'task-delete' task.pk %}">Delete</a>
+        </li>
+      {% endif %}
     {% endfor %}
   </ul>
   <a href="{% url 'task-create' %}">Create Task</a>
