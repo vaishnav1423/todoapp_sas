@@ -5,6 +5,7 @@ from .models import Task
 class TaskListView(ListView):
     model = Task
     template_name = 'task_list.html'
+    ordering=['-id']
 
 class TaskCreateView(CreateView):
     model = Task
