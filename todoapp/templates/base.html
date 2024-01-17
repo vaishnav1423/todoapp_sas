@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your App{% endblock %}</title>
+    <!-- Add your CSS imports or inline styles here -->
+</head>
+<body>
+    <header>
+        <h1>Your App</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'task-list' %}">Task List</a></li>
+                <!-- Add other navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- Add footer content if needed -->
+    </footer>
+
+    <!-- Add your JavaScript imports or inline scripts here -->
+</body>
+</html>
