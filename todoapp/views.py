@@ -4,6 +4,8 @@ from .models import Task
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import render, redirect
+from django.utils import timezone
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -41,6 +43,12 @@ class TaskUpdateView(UpdateView):
     template_name = 'task_form.html'
     fields = ['title', 'description', 'stage']
     success_url = reverse_lazy('task-list')
+    def form_valid(self, form):
+        task = form.save(commit=False)
+        if task.stage == 'done' and not task.completed_at:
+            task.completed_at = timezone.now()
+        task.save()
+        return super().form_valid(form)
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return Task.objects.filter(user=self.request.user)

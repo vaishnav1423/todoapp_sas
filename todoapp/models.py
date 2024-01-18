@@ -15,6 +15,7 @@ class Task(models.Model):
     ]
     stage = models.CharField(max_length=10, choices=stage_choices, default='todo')
     created_at = models.DateTimeField(auto_now_add=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
     def __str__(self):
         return self.title
 
