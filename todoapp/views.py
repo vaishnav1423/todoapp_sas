@@ -9,6 +9,11 @@ class TaskListView(ListView):
     model = Task
     template_name = 'task_list.html'
     ordering=['-id']
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Task.objects.filter(user=self.request.user)
+        else:
+            return Task.objects.none()
 
 
 class TaskCreateView(CreateView):
@@ -17,21 +22,34 @@ class TaskCreateView(CreateView):
     fields = ['title', 'description']
     success_url = reverse_lazy('task-list')
     def form_valid(self, form):
-        form.instance.stage = 'todo'
-        return super().form_valid(form)
-
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+            form.instance.stage = 'todo'
+            return super().form_valid(form)
+        else:
+            # Handle the case where the user is not authenticated
+            return self.handle_no_permission()
 
 class TaskUpdateView(UpdateView):
     model = Task
     template_name = 'task_form.html'
     fields = ['title', 'description', 'stage']
     success_url = reverse_lazy('task-list')
-
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Task.objects.filter(user=self.request.user)
+        else:
+            return Task.objects.none()
 
 class TaskDeleteView(DeleteView):
     model = Task
     template_name = 'task_confirm_delete.html'
     success_url = reverse_lazy('task-list')
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Task.objects.filter(user=self.request.user)
+        else:
+            return Task.objects.none()
 
 
 def handleLogin(request):
