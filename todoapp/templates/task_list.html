@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
   <h2>Task List</h2>
+  Hi {{ user.username }}!
   <ul>
     <h3><strong>ToDo</strong></h3>
     {% for task in object_list %}
       {% if task.stage == 'todo' %}
         <li>
-          {{ task.title }} - {{ task.get_stage_display }}
+          {{ task.title }} |       
           <a href="{% url 'task-update' task.pk %}">Edit</a>
           <a href="{% url 'task-delete' task.pk %}">Delete</a>
         </li>
@@ -38,5 +40,39 @@
       {% endif %}
     {% endfor %}
   </ul>
-  <a href="{% url 'task-create' %}">Create Task</a>
+  <a href="{% url 'task-create' %}">Create Task</a><br>
+  <p><a href="/tasks/logout/">Log Out</a></p>
+  {% else %}
+  <p>Login</p>
+  <form method="post" action="/tasks/login/">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.username.label_tag }}
+      <input
+        type="text"
+        name="username"
+        class="form-control"
+        maxlength="150"
+        id="id_username"
+        required
+      />
+    </div>
+    <div class="form-group">
+      {{ form.password.label_tag }}
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        id="id_password"
+        required
+      />
+    </div>
+    {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+    <p style="font-size: 13px;">
+      {{ error|escape }}
+    </p>
+    {% endfor %} {% endif %}
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+{% endif %}
 {% endblock %}

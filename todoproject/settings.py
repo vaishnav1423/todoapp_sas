@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -122,3 +122,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# AUTH_USER_MODEL = 'todoapp.CustomUser'
+# settings.py
+
+# LOGIN_REDIRECT_URL = "task-list"
+# LOGOUT_REDIRECT_URL = "task-list"
+# LOGIN_REDIRECT_URL = 'profile/'  # Replace with your actual profile URL
