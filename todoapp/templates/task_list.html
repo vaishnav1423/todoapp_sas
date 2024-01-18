@@ -12,6 +12,10 @@
           {{ task.title }} |       
           <a href="{% url 'task-update' task.pk %}">Edit</a>
           <a href="{% url 'task-delete' task.pk %}">Delete</a>
+          <small style="font-size: 60%;">Created: {{ task.created_at|timesince }} ago</small>
+          {% if task.completed_at %}
+          <small style="font-size: 60%;"> , Completed: {{ task.completed_at|timesince }} ago</small>
+          {% endif %}
         </li>
       {% endif %}
     {% endfor %}
@@ -21,9 +25,13 @@
     {% for task in object_list %}
       {% if task.stage == 'doing' %}
         <li>
-          {{ task.title }} - {{ task.get_stage_display }}
+          {{ task.title }} |
           <a href="{% url 'task-update' task.pk %}">Edit</a>
           <a href="{% url 'task-delete' task.pk %}">Delete</a>
+          <small style="font-size: 60%;">Created: {{ task.created_at|timesince}} ago</small>
+          {% if task.completed_at %}
+          <small style="font-size: 60%;">, Completed: {{ task.completed_at|timesince}} ago</small>
+          {% endif %}
         </li>
       {% endif %}
     {% endfor %}
@@ -33,9 +41,13 @@
     {% for task in object_list %}
       {% if task.stage == 'done' %}
         <li>
-          {{ task.title }} - {{ task.get_stage_display }}
+          {{ task.title }} |
           <!-- Edit option disabled for Done tasks -->
           <a href="{% url 'task-delete' task.pk %}">Delete</a>
+          <small style="font-size: 60%;">Created: {{ task.created_at|timesince }} ago</small>
+          {% if task.completed_at %}
+          <small style="font-size: 60%;"> , Completed: {{ task.completed_at|timesince }} ago</small>
+          {% endif %}
         </li>
       {% endif %}
     {% endfor %}
