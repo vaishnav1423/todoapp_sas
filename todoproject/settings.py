@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -134,3 +134,33 @@ AUTHENTICATION_BACKENDS = [
 # LOGIN_REDIRECT_URL = "task-list"
 # LOGOUT_REDIRECT_URL = "task-list"
 # LOGIN_REDIRECT_URL = 'profile/'  # Replace with your actual profile URL
+settings_file_path=os.path.dirname(os.path.abspath(__file__))
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+    'base': {
+
+        'format': '{asctime} {levelname} {name} {message}',
+
+        'style': '{'
+
+    }
+
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(settings_file_path,'../..','todo.log'),  # Adjust the filename and path as needed
+           
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO',  # Adjust the log level as needed
+    },
+}

@@ -4,15 +4,21 @@ from .models import Task
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import render, redirect
+import logging
+
+logger = logging.getLogger(__name__)
 
 class TaskListView(ListView):
+    logging.info(f"Tasklist View Home Page")
     model = Task
     template_name = 'task_list.html'
     ordering=['-id']
     def get_queryset(self):
         if self.request.user.is_authenticated:
+            logging.info(f"User ${self.request.user} is Authenticated  ")
             return Task.objects.filter(user=self.request.user)
         else:
+            logging.info(f"User is not authenticated  ")
             return Task.objects.none()
 
 
