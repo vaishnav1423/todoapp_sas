@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.shortcuts import render, get_object_or_404
+
 
 import logging
 
@@ -83,3 +85,7 @@ def handleLogout(request):
     logout(request)
     return redirect('task-list')
     # return HttpResponse('handleLogout')
+
+def task_detail(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    return render(request, 'task_detail.html', {'task': task})

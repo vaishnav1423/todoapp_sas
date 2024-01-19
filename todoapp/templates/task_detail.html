@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ task.title }} Details</h2>
+  <p>Description: {{ task.description }}</p>
+  <p>Created: {{ task.created_at|timesince }} ago</p>
+  {% if task.completed_at %}
+    <p>Completed: {{ task.completed_at|timesince }} ago</p>
+  {% endif %}
+
+<br/>
+<a href="{% url 'task-list' %}">Back</a>
+<br/>
+<p><a href="/tasks/logout/">Log Out</a></p>
+{% endblock %}

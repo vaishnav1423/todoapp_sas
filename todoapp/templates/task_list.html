@@ -9,7 +9,8 @@
     {% for task in object_list %}
       {% if task.stage == 'todo' %}
         <li>
-          {{ task.title }} |       
+          {{ task.title }} |
+          <a href="{% url 'task-detail' task.pk %}">Show</a>       
           <a href="{% url 'task-update' task.pk %}">Edit</a>
           <a href="{% url 'task-delete' task.pk %}">Delete</a>
           <small style="font-size: 60%;">Created: {{ task.created_at|timesince }} ago</small>
@@ -26,6 +27,7 @@
       {% if task.stage == 'doing' %}
         <li>
           {{ task.title }} |
+          <a href="{% url 'task-detail' task.pk %}">Show</a>
           <a href="{% url 'task-update' task.pk %}">Edit</a>
           <a href="{% url 'task-delete' task.pk %}">Delete</a>
           <small style="font-size: 60%;">Created: {{ task.created_at|timesince}} ago</small>
@@ -43,6 +45,7 @@
         <li>
           {{ task.title }} |
           <!-- Edit option disabled for Done tasks -->
+          <a href="{% url 'task-detail' task.pk %}">Show</a>
           <a href="{% url 'task-delete' task.pk %}">Delete</a>
           <small style="font-size: 60%;">Created: {{ task.created_at|timesince }} ago</small>
           {% if task.completed_at %}
