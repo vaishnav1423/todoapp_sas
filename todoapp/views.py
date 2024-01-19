@@ -20,7 +20,7 @@ class TaskListView(ListView):
     def get_queryset(self):
         if self.request.user.is_authenticated:
             logging.info(f"User ${self.request.user} is Authenticated  ")
-            return Task.objects.filter(user=self.request.user)
+            return Task.objects.filter(user=self.request.user).order_by('-id')
         else:
             logging.info(f"User is not authenticated  ")
             return Task.objects.none()
