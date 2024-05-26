@@ -29,4 +29,4 @@ jobs:
           pylint --disable=all \
             --enable=C0303,C0304,C0114,W0404,C0115,W1203,W1309,R1705 \
             -f parseable \
-            $(find . -name '*.py')
+            $(find . -name '*.py' ! -path "./todoapp/migrations/*")

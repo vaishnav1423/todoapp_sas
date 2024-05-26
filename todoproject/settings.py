@@ -150,13 +150,11 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'class': 'logging.StreamHandler',
-            
+            'class': 'logging.StreamHandler',            
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': os.path.join(settings_file_path,'../..','todo.log'),  # Adjust the filename and path as needed
-           
+            'filename': os.path.join(settings_file_path,'../..','todo.log'),  # Adjust the filename and path as needed           
         },
     },
     'root': {
