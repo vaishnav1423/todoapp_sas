@@ -1,3 +1,6 @@
+"""
+routes definition  
+"""
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView,task_detail
