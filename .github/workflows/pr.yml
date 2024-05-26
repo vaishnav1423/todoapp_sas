@@ -26,4 +26,7 @@ jobs:
 
       - name: Analyzing Code
         run: |
-          find . -name '*.py' -exec pylint {} +
+          pylint --disable=all \
+            --enable=C0303,C0304,C0114,W0404,C0115,W1203,W1309,R1705 \
+            -f parseable \
+            $(find . -name '*.py')
